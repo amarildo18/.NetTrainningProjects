@@ -11,9 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // configurando a string de conexão
-var connection = builder.Configuration["ConnectionStrings:SqlServerConnection"];
+//var connection = builder.Configuration["ConnectionStrings:SqlServerConnection"];
 builder.Services.AddDbContext <SqlServerContext> (option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString(connection)));
+    option.UseSqlServer(builder.Configuration["ConnectionStrings:SqlServerConnection"]));
 
 var app = builder.Build();
 

@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GeekShopping.ProductAPI.Models
 {
-    [Table("")]
+    [Table("Product")]
     public class Product: BaseEntity
     {
         [Column("name")]
         [Required]
         [StringLength(150)]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         [Column("price")]
         [Required]
