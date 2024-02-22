@@ -1,6 +1,7 @@
 using AutoMapper;   
 using GeekShopping.ProductAPI.Config;
 using GeekShopping.ProductAPI.Models.Context;
+using GeekShopping.ProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Services.AddSwaggerGen();
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // configurando a string de conexão
 //var connection = builder.Configuration["ConnectionStrings:SqlServerConnection"];
