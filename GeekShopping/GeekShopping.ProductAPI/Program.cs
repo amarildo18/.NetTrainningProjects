@@ -1,3 +1,5 @@
+using AutoMapper;   
+using GeekShopping.ProductAPI.Config;
 using GeekShopping.ProductAPI.Models.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// configurações do autoMapper
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // configurando a string de conexão
 //var connection = builder.Configuration["ConnectionStrings:SqlServerConnection"];
