@@ -23,7 +23,7 @@ namespace GeekShopping.ProductAPI.Models
 
         [Column("categoryName")]
         [StringLength(50)]
-        public string? categoryName { get; set; }
+        public string? CategoryName { get; set; }
 
         [Column("imageUrl")]
         [StringLength(300)]
