@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace GeekShopping.ProductAPI.Data.ValueObjects
+﻿namespace GeekShopping.web.Models
 {
-    public class ProductVO
+    public class ProductModel
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +8,5 @@ namespace GeekShopping.ProductAPI.Data.ValueObjects
         public string? Description { get; set; }
         public string? CategoryName { get; set; }
         public string? ImageURL { get; set; }
-
     }
 }
