@@ -23,7 +23,7 @@ namespace GeekShopping.ProductAPI.Models
 
         [Column("categoryName")]
         [StringLength(50)]
-        public decimal? PricePrice { get; set; }
+        public string? categoryName { get; set; }
 
         [Column("imageUrl")]
         [StringLength(300)]
