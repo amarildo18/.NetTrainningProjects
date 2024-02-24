@@ -9,7 +9,7 @@ namespace GeekShopping.ProductAPI.Data.ValueObjects
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string? Description { get; set; }
-        public decimal? PricePrice { get; set; }
+        public decimal? categoryName { get; set; }
         public string? ImageURL { get; set; }
 
     }
