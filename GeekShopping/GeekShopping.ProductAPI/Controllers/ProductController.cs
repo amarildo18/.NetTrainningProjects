@@ -16,6 +16,13 @@ namespace GeekShopping.ProductAPI.Controllers
             _repository= repository?? throw new ArgumentNullException(nameof(repository));
         }
 
+        // GET: api/v1/Product
+        /// <summary>
+        /// Gets all products
+        /// </summary>
+        /// <returns>A list of Products</returns>
+        /// <response code="200">Returns a list of Products</response>
+        /// <response code="404">If there are no Products</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductVO>>> getAll()
         {
@@ -23,7 +30,14 @@ namespace GeekShopping.ProductAPI.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        // GET: api/v1/Product/id
+        /// <summary>
+        /// Gets specific product by it´s Id
+        /// </summary>
+        /// <returns>A list of Products</returns>
+        /// <response code="200">Returns a Product</response>
+        /// <response code="404">If there are no Productrelated to given Id</response>
+        [HttpGet("{id}", Name ="GetProductById")]
         public async Task<ActionResult<ProductVO>> getById(long id)
         {
             var product = await _repository.FindById(id);

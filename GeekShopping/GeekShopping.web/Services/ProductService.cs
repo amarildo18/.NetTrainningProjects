@@ -8,6 +8,11 @@ namespace GeekShopping.web.Services
     {
         private readonly HttpClient _Client;
         public const string basePath = "api/v1/product";
+
+        public ProductService(HttpClient client)
+        {
+            _Client = client;
+        }
         public async Task<IEnumerable<ProductModel>> FindAllProducts()
         {
             var response = await _Client.GetAsync(basePath);
@@ -22,17 +27,38 @@ namespace GeekShopping.web.Services
 
         public async Task<ProductModel> CreateProduct(ProductModel model)
         {
-            throw new NotImplementedException();
+            var response = await _Client.PostAsJson(basePath, model);
+            if(response.IsSuccessStatusCode)
+            {
+                return await response.ReadContentAsync<ProductModel>();
+            }
+            else
+            {
+                throw new Exception("Something went wrong when calling the API");
+            }
+            
         }
 
         public async Task<ProductModel> UpdateProduct(ProductModel model)
         {
-            throw new NotImplementedException();
+            var response = await _Client.PutAsJson(basePath, model);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.ReadContentAsync<ProductModel>();
+            }
+            else
+            {
+                throw new Exception("Something went wrong when calling the API");
+            }
         }
 
         public async Task<bool> DeleteProductById(long id)
         {
-            throw new NotImplementedException();
+            var response = await _Client.DeleteAsync($"{basePath}/{id}");
+            if (response.IsSuccessStatusCode)
+                return await response.ReadContentAsync<bool>();
+            else
+                throw new Exception("Something went wrong when calling the API");
         }
     }
 }
