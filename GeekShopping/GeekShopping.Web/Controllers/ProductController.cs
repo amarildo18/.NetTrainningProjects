@@ -1,4 +1,5 @@
-﻿using GeekShopping.web.Services;
+﻿using GeekShopping.web.Models;
+using GeekShopping.web.Services;
 using GeekShopping.web.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,8 +15,9 @@ namespace GeekShopping.web.Controllers
         }
         public async Task<IActionResult> ProductIndex()
         {
-            var products = _productService.FindAllProducts();
+            var products = await _productService.FindAllProducts();
             return View(products);
         }
+
     }
 }
