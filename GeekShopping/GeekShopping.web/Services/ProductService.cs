@@ -52,11 +52,11 @@ namespace GeekShopping.web.Services
             }
         }
 
-        public async Task<bool> DeleteProductById(long id)
+        public async Task<ProductModel> DeleteProductById(long id)
         {
             var response = await _Client.DeleteAsync($"{basePath}/{id}");
             if (response.IsSuccessStatusCode)
-                return await response.ReadContentAsync<bool>();
+                return await response.ReadContentAsync<ProductModel>();
             else
                 throw new Exception("Something went wrong when calling the API");
         }

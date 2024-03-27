@@ -24,7 +24,7 @@ namespace GeekShopping.ProductAPI.Controllers
         /// <response code="200">Returns a list of Products</response>
         /// <response code="404">If there are no Products</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductVO>>> getAll()
+        public async Task<ActionResult<IEnumerable<ProductVO>>> GetAll()
         {
             var products = await _repository.FindAll();
             return Ok(products);
@@ -38,7 +38,7 @@ namespace GeekShopping.ProductAPI.Controllers
         /// <response code="200">Returns a Product</response>
         /// <response code="404">If there are no Productrelated to given Id</response>
         [HttpGet("{id}", Name ="GetProductById")]
-        public async Task<ActionResult<ProductVO>> getById(long id)
+        public async Task<ActionResult<ProductVO>> GetById(long id)
         {
             var product = await _repository.FindById(id);
             if(product == null)
@@ -83,12 +83,12 @@ namespace GeekShopping.ProductAPI.Controllers
         public async Task<ActionResult> Delete(long id)
         {
             var status = await _repository.Delete(id);
-            if (!status)
+            if (status == null)
             {
                 return NotFound();
             }
 
-            return Ok();
+            return Ok(status);
         }
     }
 }

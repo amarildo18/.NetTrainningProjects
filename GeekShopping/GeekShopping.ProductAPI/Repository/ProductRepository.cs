@@ -49,7 +49,7 @@ namespace GeekShopping.ProductAPI.Repository
             return _mapper.Map<ProductVO>(product);
         }
 
-        public async Task<bool> Delete(long id)
+        public async Task<ProductVO> Delete(long id)
         {
             try
             {
@@ -61,15 +61,15 @@ namespace GeekShopping.ProductAPI.Repository
                 {
                     _context.Products.Remove(product);
                     await _context.SaveChangesAsync();
-                    return true;
+                    return _mapper.Map<ProductVO>(product);
                 }
 
-                return false;
+                throw new ApplicationException($"Something went wrong calling the repository");
             }
             catch (Exception)
             {
 
-                return false;
+                throw new ApplicationException($"Something went wrong calling the repository");
             }
         }
 
