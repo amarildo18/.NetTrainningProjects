@@ -1,7 +1,39 @@
+using GeekShopping.IdentityServer.Configuration;
+using GeekShopping.IdentityServer.DataAccess;
+using GeekShopping.IdentityServer.DataAccess.Context;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// configurando a string de conexão
+//var connection = builder.Configuration["ConnectionStrings:SqlServerConnection"];
+builder.Services.AddDbContext<SqlServerContext>(option =>
+    option.UseSqlServer(builder.Configuration["ConnectionStrings:SqlServerIdentityConnection"])
+);
+
+//Adicionando configurações referentes ao IdentityServer
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<SqlServerContext>()
+                .AddDefaultTokenProviders();
+
+var _builder = builder.Services.AddIdentityServer(options =>
+    {
+        options.Events.RaiseErrorEvents = true;
+        options.Events.RaiseInformationEvents = true;
+        options.Events.RaiseFailureEvents = true;
+        options.Events.RaiseSuccessEvents = true;
+        options.EmitStaticAudienceClaim = true;
+    }
+).AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
+ .AddInMemoryClients(IdentityConfiguration.clients)
+ .AddAspNetIdentity<ApplicationUser>();
+
+_builder.AddDeveloperSigningCredential();
 
 var app = builder.Build();
 
@@ -17,7 +49,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapControllerRoute(
